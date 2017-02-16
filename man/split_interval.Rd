@@ -31,6 +31,7 @@ ni = split_interval(ni,i=length(ni)-1)
 ni
 ni = split_interval(ni,i=length(ni)-1)
 ni
+ni = split_interval(ni,i=length(ni)-1)
 ni
 }
 

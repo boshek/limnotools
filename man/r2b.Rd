@@ -16,10 +16,11 @@ r2b(k1, k2, x, y)
 \item{y}{[REAL(?)] input y-axis array (response)}
 }
 \value{
-A -[REAL] coefficient of linear regression (will zero if K1=0) (y=Ax+B), B -[REAL] coefficient of linear regression, R2B -[REAL] norm of the segment (maximum "distance" measured perpendicular to the regression line)
+err [REAL] error norm calculated as the maximum pointwise geometrical distance measured perpendicular to the regression line.
 }
 \description{
-A -[REAL] coefficient of linear regression (will zero if K1=0) (y=Ax+B), B -[REAL] coefficient of linear regression, R2B -[REAL] norm of the segment (maximum "distance" measured perpendicular to the regression line)
+Finds the least-squares regression line through the data points with index >= k1 and < k2.
+Computes the perpendicular distance of each point from the regression line and returns the maximum.
 }
 \examples{
 ni <- c( 1, 201, 402 )
