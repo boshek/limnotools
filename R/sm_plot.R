@@ -1,10 +1,18 @@
-sm_plot <- function(z=z, sigma=sigma) {
-  ## NOT specifying # of segments
-  uncons <- by_s_m(thres=0.1,z0=1,zmax=150,z=z[depth_filter(z)],sigma=sigma[depth_filter(z)])
+#' @export
+#' @title sm_plot
+#' @param z [real] Vector of depth values
+#' @param sigma [real] Vector of corresponding parameter values
+#' @description Plots data, piecewise-linear fitted curve, and mixed-layer depth
+
+#importFrom("graphics", "abline", "lines", "par", "plot", "points", "title")
+
+sm_plot <- function(z=z, sigma=sigma, errornorm=0.02, nsegments=3) {
+  ## Specifying error norm
+  uncons <- by_s_m(thres=errornorm,z0=1,zmax=150,z=z[depth_filter(z)],sigma=sigma[depth_filter(z)])
   ## To see congruence between two methods
-  nr <- uncons[["nimax"]]
+  # nr <- uncons[["nimax"]]
   ## Specifying # of segments
-  cons <- by_s_m3(nr=nr,z0=1,zmax=150,z=z[depth_filter(z)],sigma=sigma[depth_filter(z)])
+  cons <- by_s_m3(nr=nsegments,z0=1,zmax=150,z=z[depth_filter(z)],sigma=sigma[depth_filter(z)])
 
 
   par(mfrow=c(1,2))
