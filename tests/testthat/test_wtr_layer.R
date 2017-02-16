@@ -13,4 +13,3 @@ test_that("NA's are returned when profile has less than 10 readings", {
   expect_warning(wtr_layer(depth=z, measure = sigmavar))
 })
 
-
