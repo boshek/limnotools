@@ -1,5 +1,5 @@
 #' @export
-#' @title Computing linear segments for a specified error norm value.
+#' @title s_m_p
 #' @param eps [real] error norm
 #' @param x [real] input x-axis array, should be an increasing function of index
 #' @param y [real] input y-axis array
@@ -38,7 +38,8 @@ s_m_p = function(eps,x,y) {
     while( i<length(ni) ) {   # Rinse, repeat over all intervals in ni.
       k1=ni[i]
       k2=ni[i+1]
-      if(r2b(k1,k2,x,y) > eps ) {
+      r2bresults = r2b(k1,k2,x,y)
+      if(r2bresults$error > eps ) {
         # N.B. We split an interval here so ni gets one element longer
         # N.B. If an interval is added we will have to test the first
         # of the two new intervals so we don't increment i.
@@ -65,7 +66,7 @@ s_m_p = function(eps,x,y) {
     # for( i in 2:(length(ni)-1) ) {
       k1=ni[i-1]
       k2=ni[i+1]
-      eps1=r2b( k1=k1, k2=k2, x=x, y=y )
+      eps1=r2b( k1=k1, k2=k2, x=x, y=y )$error
       # print(sprintf("merge trial. len(ni): %d, i: %d, k1: %d, k2: %d eps:%f",length(ni),i,k1,k2,eps)) #DEBUG
       if( eps1<eps ) {
         if( length(ni)-1 <= 2 ) { # Are there sufficient intervals to make a merge?
@@ -106,7 +107,7 @@ s_m_p = function(eps,x,y) {
       kmid = ni[i]
       k2 = ni[i+1]
       # Find the error on both intervals and take the max.
-      epsm = max( r2b(k1,kmid,x,y), r2b(kmid,k2,x,y) ) # TODO: I don't think this is necessary. We'll find it below anyway.
+      epsm = max( r2b(k1,kmid,x,y)$error, r2b(kmid,k2,x,y)$error ) # TODO: I don't think this is necessary. We'll find it below anyway.
 
       # We are going to move the midpoint one index at a time
       # and find the split that gives the best error.
@@ -114,7 +115,7 @@ s_m_p = function(eps,x,y) {
 
       # Scan all alternative splitpoints between these two enpoints.
       for( trialmid in (k1+2):(k2-2) ) {
-        epsr = max( r2b(k1,trialmid,x,y), r2b(trialmid,k2,x,y) )  # Calculate max error
+        epsr = max( r2b(k1,trialmid,x,y)$error, r2b(trialmid,k2,x,y)$error )  # Calculate max error
         if( epsr < epsm ) {
           epsm = epsr  # This split is the best so far
           bestmid = trialmid # Keep track of which index it is at.
