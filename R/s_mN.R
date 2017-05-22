@@ -127,11 +127,13 @@ s_mN = function(nr,x,y) {
       k1 = ni[i-1]
       kmid = ni[i]
       k2 = ni[i+1]
-      epsm = max( r2b(k1,kmid,x,y), r2b(kmid,k2,x,y) )
+      # epsm = max( r2b(k1,kmid,x,y), r2b(kmid,k2,x,y) )
+      epsm = max( r2b(k1,kmid,x,y)$error, r2b(kmid,k2,x,y)$error )
 
       j1 = ni[i]
       for( j in (k1+2):(k2-2) ) {
-        epsr = max( r2b(k1,j,x,y), r2b(j,k2,x,y) )
+        # epsr = max( r2b(k1,j,x,y), r2b(j,k2,x,y) )
+        epsr = max( r2b(k1,j,x,y)$error, r2b(j,k2,x,y)$error )
         if( epsr < epsm ) {
           epsm = epsr
           j1 = j
